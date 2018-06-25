@@ -1,0 +1,7 @@
+set vertical-split = yes
+
+bind branch n @git checkout -b "%(prompt Enter branch name: )"
+bind branch M ?git merge %(branch)
+bind branch p ?git pull --rebase %(remote) %(branch)
+bind branch P ?git push %(remote) %(branch)
+bind branch f ?git fetch -p
