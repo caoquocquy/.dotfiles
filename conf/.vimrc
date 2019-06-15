@@ -36,13 +36,11 @@ call vundle#end()
 syntax on                         " show syntax highlighting
 filetype plugin indent on
 
-
 " Quick Fixes =================================================================
 "vim has not yet support python3 so we need to silent that version so far
 if has('python3')
   silent! python3 1
 endif
-
 
 " Built In ====================================================================
 set number                         " show line number
@@ -58,7 +56,6 @@ set clipboard+=unnamed             " use the system clipboard
 set nobackup
 set noswapfile
 set nowritebackup
-
 " set colorcolumn=80              " show horizontal separator
 " set laststatus=2                " always show status bar
 " set scrolloff=2                 " minimum lines above/below cursor
@@ -78,10 +75,10 @@ set nowritebackup
 " tpope/vim-fugitive ==========================================================
 nnoremap <space>gb :Gblame<CR>
 nnoremap <space>gd :Gdiff<CR>
-" Get changes from target (self) branch
-nnoremap gt :diffget //2<CR>
-" Get changes from merge (their) branch
-nnoremap gm :diffget //3<CR>
+" Get changes from my (target) branch
+nnoremap gm :diffget //2<CR>
+" Get changes from their (merge) branch
+nnoremap gt :diffget //3<CR>
 
 " haml ========================================================================
 let g:move_key_modifier = 'C'
