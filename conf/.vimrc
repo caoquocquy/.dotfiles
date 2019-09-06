@@ -1,45 +1,11 @@
-" VundleVim/Vundle.vim ========================================================
+" vim-plug ========================================================
 set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'roxma/vim-hug-neovim-rpc'
-Plugin 'roxma/nvim-yarp'
-Plugin 'shougo/denite.nvim' " 'brew install Ag' first please
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
-Plugin 'lifepillar/vim-solarized8'
-Plugin 'bling/vim-airline'
-Plugin 'vim-syntastic/syntastic'
-Bundle 'thoughtbot/vim-rspec'
-Bundle 'tpope/vim-dispatch'
-Plugin 'ngmy/vim-rubocop'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'casecommons/vim-rails'
-Plugin 'pangloss/vim-javascript'
-Plugin 'maksimr/vim-jsbeautify'
-Plugin 'mgechev/vim-jsx'
-Plugin 'chriseppstein/vim-haml'
-Plugin 'hiukkanen/vim-hamlc'
-Plugin 'tpope/vim-cucumber'
-Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'matze/vim-move'
-Plugin 'joom/vim-commentary'
-call vundle#end()
-
-" :PluginInstall to install the plugin
-
-syntax on                         " show syntax highlighting
-filetype plugin indent on
+" filetype off
 
 " Quick Fixes =================================================================
 "vim has not yet support python3 so we need to silent that version so far
 if has('python3')
-  silent! python3 1
+  " silent! python3 1
 endif
 
 " Built In ====================================================================
@@ -72,6 +38,42 @@ set nowritebackup
 " set wildmenu                    " enable bash style tab completion
 " set wildmode=list:longest,full
 
+call plug#begin()
+Plug 'scrooloose/nerdtree'
+Plug 'mhinz/vim-startify'
+Plug 'mhinz/vim-grepper'
+" Open a Quickfix item in a window you choose. (Vim plugin)
+Plug 'yssl/QFEnter'
+" An asynchronous fuzzy finder which is used to quickly locate files, buffers,
+" mrus, tags, etc. in large project.
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'bling/vim-airline'
+Plug 'vim-syntastic/syntastic'
+Plug 'thoughtbot/vim-rspec'
+Plug 'tpope/vim-dispatch'
+Plug 'ngmy/vim-rubocop'
+Plug 'casecommons/vim-rails'
+Plug 'pangloss/vim-javascript'
+Plug 'maksimr/vim-jsbeautify'
+Plug 'mgechev/vim-jsx'
+Plug 'chriseppstein/vim-haml'
+Plug 'hiukkanen/vim-hamlc'
+Plug 'tpope/vim-cucumber'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'matze/vim-move'
+Plug 'tpope/vim-commentary'
+Plug 'lifepillar/vim-solarized8'
+call plug#end()
+
+" :PlugInstall to install the plugin
+
+" syntax on                         " show syntax highlighting
+" filetype plugin indent on
+
+
 " tpope/vim-fugitive ==========================================================
 nnoremap <space>gb :Gblame<CR>
 nnoremap <space>gd :Gdiff<CR>
@@ -84,6 +86,14 @@ nnoremap gt :diffget //3<CR>
 let g:move_key_modifier = 'C'
 au! BufRead,BufNewFile *.inky-haml setfiletype haml
 au! BufRead,BufNewFile *.hamlc setfiletype haml
+augroup VimMoveKey
+  autocmd!
+  autocmd VimEnter * nunmap <C-h>
+  autocmd VimEnter * nunmap <C-l>
+  autocmd VimEnter * vunmap <C-h>
+  autocmd VimEnter * vunmap <C-l>
+augroup END
+
 
 " Remap leader key to SPACE
 let mapleader="\<SPACE>"
@@ -103,17 +113,6 @@ let g:NERDTreeMapOpenSplit = 'v'
 let g:NERDTreeMapOpenVSplit = 'h'
 
 
-" lifepillar/vim-solarized8 ===================================================
-set background=dark
-set shell=/bin/sh
-colorscheme solarized8
-
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
-
 
 " rspec-cucumber.vim ==========================================================
 " RSpec.vim mappings
@@ -121,10 +120,6 @@ nnoremap <Leader>t :call RunNearestSpec()<CR>
 nnoremap <Leader>T :call RunCurrentSpecFile()<CR>
 " nnoremap <Leader>l :call RunLastSpec()<CR>
 " nnoremap <Leader>a :call RunAllSpecs()<CR>
-
-" temporary for current workflow
-let g:rspec_command = "Dispatch cd ~/code/coach_dev_env/; docker-compose exec coach rspec {spec}"
-
 
 " Built In Buffer =============================================================
 " nnoremap <Leader>b :buffers<CR>
@@ -167,36 +162,81 @@ endfunction
 " Copy File Path ==============================================================
 nnoremap <C-g> :let @*=expand("%") <bar> :let @0=expand("%") <bar> :echo "\"" . expand("%") . "\"" . " relative path copied"<CR>
 
+" Grepper
+let g:default_grepper_options = {
+            \ 'open':                1,
+            \ 'switch':              1,
+            \ 'jump':                0,
+            \ 'prompt_mapping_tool': '<C-\>',
+            \ 'tools':               ['rg', 'ag', 'git', 'grep', 'findstr'],
+            \ 'stop':                2000,
+            \ }
 
-" shougo/denite.nvim ==========================================================
-" It uses Ag as the core so we need to install that plugin: brew install Ag
-call denite#custom#option('_', 'highlight_matched_range', 'None')
-call denite#custom#option('_', 'highlight_matched_char', 'Function')
-" use ag for file & content search
-call denite#custom#var('grep', 'command', ['ag'])
-call denite#custom#var('grep', 'default_opts',
-      \ ['-i', '--vimgrep'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', [])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
-call denite#custom#var('file_rec', 'command',
-      \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-" ignores files
-call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-      \ [ '.git/', '.ropeproject/', '__pycache__/',
-      \ 'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+let g:grepper = copy(g:default_grepper_options)
 
-"call denite#custom#option('default', 'auto_resume', 1)
-nnoremap <Leader>f :Denite file_rec<CR>
-nnoremap <Leader>r :Denite -resume<CR>
-nnoremap <Leader>b :Denite buffer<CR>
-nnoremap <Leader>/ :Denite grep<CR>
-nnoremap <Leader>o :Denite outline<CR>
-nnoremap <Leader>l :Denite line<CR>
-"grep with word under cursor
-nnoremap <Leader>? :Denite grep:::`expand('<cword>')`<CR>
-call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
-call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
-call denite#custom#map('insert', '<C-h>', '<denite:do_action:vsplit>', 'noremap')
-call denite#custom#map('insert', '<C-v', '<denite:do_action:split>', 'noremap')
+command! -nargs=* -complete=customlist,grepper#complete LGrepper Grepper -noquickfix <args>
+command! -nargs=* -complete=customlist,grepper#complete BGrepper LGrepper -buffer <args>
+
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
+
+nnoremap <silent> <Leader>S :Grepper<CR>
+nnoremap <silent> <Leader>s :Grepper -noprompt -cword<CR>
+
+" Startify
+let g:startify_skiplist = [
+      \ '.git/index',
+      \ '.git/config',
+      \ 'COMMIT_EDITMSG',
+      \ 'git-rebase-todo',
+      \ escape(fnamemodify($VIMRUNTIME, ':p'), '\') . 'doc',
+      \ ]
+
+let g:startify_enable_special     = 0
+let g:startify_change_to_dir      = 0
+let g:startify_change_to_vcs_root = 0
+let g:startify_relative_path      = 1
+let g:startify_update_oldfiles    = 1
+let g:startify_show_sessions      = 1
+let g:startify_custom_header      = [] " Disable random quotes header
+
+nnoremap <silent> <Leader>h :Startify<CR>
+
+" LeaderF
+let g:Lf_WindowHeight  = 0.30
+let g:Lf_MruMaxFiles   = 200
+" let g:Lf_CursorBlink   = 0 " When set this setting to 0, C-J & C-K do not work, temporarily disable it
+let g:Lf_PreviewResult = { 'BufTag': 0, 'Function': 0 }
+let g:Lf_StlSeparator  = { 'left': '', 'right': '' }
+
+let g:Lf_UseCache      = 0 " rg/ag is enough fast, we don't need cache
+let g:Lf_NeedCacheTime = 5 " 5 seconds
+
+" let g:Lf_NoChdir              = 1
+let g:Lf_WorkingDirectoryMode = 'c'
+
+if executable('fd')
+    let g:Lf_ExternalCommand = 'fd --color=never --no-ignore-vcs --hidden --type file . %s'
+elseif executable('ag')
+    let g:Lf_ExternalCommand = 'ag %s --nocolor --skip-vcs-ignores --hidden -l -g ""'
+elseif executable('rg')
+    let g:Lf_ExternalCommand = 'rg %s --color=never --no-ignore-vcs --hidden --files'
+endif
+nnoremap <Leader>f :LeaderfFile<CR>
+nnoremap <Leader>b :LeaderfBuffer<CR>
+nnoremap <Leader>r :LeaderfRgRecall<CR>
+nnoremap <Leader>/ :LeaderfRgInteractive<CR>
+nnoremap <Leader>o :LeaderfFunction<CR>
+nnoremap <Leader>O :LeaderfMru<CR>
+nnoremap <Leader>l :LeaderfLine<CR>
+
+" lifepillar/vim-solarized8 ===================================================
+set background=dark
+
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
+colorscheme solarized8
