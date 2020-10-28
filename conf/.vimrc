@@ -15,6 +15,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-syntastic/syntastic'
 Plug 'lifepillar/vim-solarized8'
+Plug 'yggdroot/indentline'
 call plug#end()
 
 " ---------------------------------------------------------------------------------------------------------------------
