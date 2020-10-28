@@ -119,7 +119,7 @@ nnoremap <silent> <Leader>h :Startify<CR>
 " ---------------------------------------------------------------------------------------------------------------------
 " Yggdroot/LeaderF
 let g:Lf_WindowPosition = 'popup'
-let g:Lf_ShowDevIcons = 1
+let g:Lf_ShowDevIcons = 0
 
 nnoremap <Leader>f :LeaderfFile<CR>
 
