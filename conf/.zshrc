@@ -31,6 +31,7 @@ alias generator="cd ~/code/ws/survey_generator"
 alias benchmarker="cd ~/code/ws/survey_benchmarker"
 alias calendar="cd ~/code/tp_calendar"
 alias snippets="cd ~/code/snippets"
+alias dotfiles="cd ~/.dotfiles"
 
 alias up="docker-compose up -d"
 alias down="docker-compose down"
