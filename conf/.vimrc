@@ -21,6 +21,8 @@ call plug#end()
 " Remap leader key to SPACE
 let mapleader="\<SPACE>"
 
+nnoremap <leader><leader> :e#<CR>
+
 " ---------------------------------------------------------------------------------------------------------------------
 " Built In
 set nocompatible
