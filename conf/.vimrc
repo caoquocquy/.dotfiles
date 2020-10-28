@@ -68,9 +68,9 @@ nnoremap <Leader>v :split<CR>
 " rking/ag.vim
 let g:ag_prg='ag --vimgrep -S --path-to-ignore ~/.ignore'
 
-nnoremap <leader>a :Ag ""<Left>
-nnoremap <Leader>s :Ag <C-R><C-W><CR>
-nnoremap <Leader>/ :AgRaw ""<Left>
+nnoremap <leader>a :Ag --ruby ""<Left>
+nnoremap <Leader>s :Ag --ruby <C-R><C-W><CR>
+nnoremap <Leader>/ :AgRaw -ruby ""<Left>
 
 " ---------------------------------------------------------------------------------------------------------------------
 " Window Zooming
