@@ -44,7 +44,7 @@ set colorcolumn=120                " show horizontal separator
 
 " ---------------------------------------------------------------------------------------------------------------------
 " thoughtbot/vim-rspec
-let g:rspec_command = 'call Send_to_Tmux("rspec {spec} --format documentation\n")'
+let g:rspec_command = 'call Send_to_Tmux("spring rspec {spec} --format documentation\n")'
 
 map <Leader>t :call RunNearestSpec()<CR>
 map <Leader>T :call RunCurrentSpecFile()<CR>
