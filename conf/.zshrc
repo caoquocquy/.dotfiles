@@ -30,6 +30,7 @@ alias notifier="cd ~/code/ws/survey_notifier"
 alias generator="cd ~/code/ws/survey_generator"
 alias benchmarker="cd ~/code/ws/survey_benchmarker"
 alias calendar="cd ~/code/tp_calendar"
+alias query="cd ~/code/tp_query"
 alias snippets="cd ~/code/snippets"
 alias dotfiles="cd ~/.dotfiles"
 
