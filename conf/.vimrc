@@ -11,7 +11,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-startify'
 Plug 'thoughtbot/vim-rspec'
-Plug 'jgdavey/tslime.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-syntastic/syntastic'
@@ -44,7 +43,7 @@ set colorcolumn=120                " show horizontal separator
 
 " ---------------------------------------------------------------------------------------------------------------------
 " thoughtbot/vim-rspec
-let g:rspec_command = 'call Send_to_Tmux("spring rspec {spec} --format documentation\n")'
+" let g:rspec_command = 'call Send_to_Tmux("spring rspec {spec} --format documentation\n")'
 
 map <Leader>t :call RunNearestSpec()<CR>
 map <Leader>T :call RunCurrentSpecFile()<CR>
@@ -122,7 +121,7 @@ nnoremap <silent> <Leader>h :Startify<CR>
 
 " ---------------------------------------------------------------------------------------------------------------------
 " Yggdroot/LeaderF
-let g:Lf_WindowPosition = 'popup'
+" let g:Lf_WindowPosition = 'popup'
 let g:Lf_ShowDevIcons = 0
 
 nnoremap <Leader>f :LeaderfFile<CR>
