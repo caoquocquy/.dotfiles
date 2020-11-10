@@ -16,6 +16,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-syntastic/syntastic'
 Plug 'lifepillar/vim-solarized8'
 Plug 'yggdroot/indentline'
+Plug 'maralla/completor.vim'
 call plug#end()
 
 " ---------------------------------------------------------------------------------------------------------------------
@@ -68,11 +69,11 @@ nnoremap <Leader>v :split<CR>
 
 " ---------------------------------------------------------------------------------------------------------------------
 " rking/ag.vim
+let g:ag_working_path_mode='r'
 let g:ag_prg='ag --vimgrep -S --path-to-ignore ~/.ignore'
 
-nnoremap <leader>a :Ag --ruby ""<Left>
 nnoremap <Leader>s :Ag --ruby <C-R><C-W><CR>
-nnoremap <Leader>/ :AgRaw -ruby ""<Left>
+nnoremap <Leader>/ :Ag --ruby ""<Left>
 
 " ---------------------------------------------------------------------------------------------------------------------
 " Window Zooming
@@ -147,3 +148,8 @@ set fillchars=vert:│
 hi VertSplit ctermbg=NONE guibg=NONE ctermfg=Green guifg=#839289
 autocmd ColorScheme * highlight VertSplit cterm=NONE ctermfg=Green ctermbg=NONE
 hi NonText ctermfg=darkcyan guifg=darkcyan
+" ---------------------------------------------------------------------------------------------------------------------
+" Plug 'maralla/completor.vim'
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
