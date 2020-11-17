@@ -57,22 +57,10 @@ export DISABLE_AUTO_TITLE=true
 export CXXFLAGS="-mmacosx-version-min=10.9"
 export LDFLAGS="-mmacosx-version-min=10.9" 
 
-export FZF_DEFAULT_OPTS='
-  --color=bg+:#073642,bg:#002b36,spinner:#719e07,hl:#719e07
-  --color=fg:#839496,header:#586e75,info:#cb4b16,pointer:#719e07
-  --color=marker:#719e07,fg+:#839496,prompt:#719e07,hl+:#719e07
-  --reverse
-  --cycle
-  --no-bold
-  --no-mouse
-  --bind ctrl-p:preview-up
-  --bind ctrl-n:preview-down
-  --bind ?:toggle-preview
-'
 export PATH="/usr/local/opt/terraform@0.11/bin:$PATH"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
-export FZF_DEFAULT_COMMAND='ag --files --no-ignore --hidden --follow --glob "!.git/*" --glob "!node_modules" --glob "!node_modules" --glob "!tmp/*" --glob "!**/*.min.js" --glob "!**/*.min.css"'
 unsetopt nomatch
+

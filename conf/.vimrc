@@ -2,8 +2,11 @@
 " junegunn/vim-plug
 call plug#begin()
 Plug 'scrooloose/nerdtree'
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-Plug 'rking/ag.vim'
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+" brew install rg
+
 Plug 'matze/vim-move'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -16,7 +19,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-syntastic/syntastic'
 Plug 'lifepillar/vim-solarized8'
 Plug 'yggdroot/indentline'
-Plug 'maralla/completor.vim'
 call plug#end()
 
 " ---------------------------------------------------------------------------------------------------------------------
@@ -41,6 +43,14 @@ set nobackup
 set noswapfile
 set nowritebackup
 set colorcolumn=120                " show horizontal separator
+
+" ---------------------------------------------------------------------------------------------------------------------
+" Plug 'junegunn/fzf.vim'
+let g:fzf_layout = { 'down': '30%' } " - down / up / left / right
+
+command! -bang -nargs=*  All
+  \ call fzf#run(fzf#wrap({'source': 'rg --files --hidden --no-ignore-vcs --glob "!{node_modules/*,.git/*,tmp/*,log/*,.bundle,vendor/bundle/*,gems/*,.gems/*,components/*/gems/*}"', 'options': '--expect=ctrl-t,ctrl-x,ctrl-v --multi --reverse'}))
+nnoremap <Leader>f :All<CR>
 
 " ---------------------------------------------------------------------------------------------------------------------
 " thoughtbot/vim-rspec
@@ -69,11 +79,11 @@ nnoremap <Leader>v :split<CR>
 
 " ---------------------------------------------------------------------------------------------------------------------
 " rking/ag.vim
-let g:ag_working_path_mode='r'
-let g:ag_prg='ag --vimgrep -S --path-to-ignore ~/.ignore'
+" let g:ag_working_path_mode='r'
+" let g:ag_prg='ag --vimgrep -S --path-to-ignore ~/.ignore'
 
-nnoremap <Leader>s :Ag --ruby <C-R><C-W><CR>
-nnoremap <Leader>/ :Ag --ruby ""<Left>
+" nnoremap <Leader>s :Ag --ruby <C-R><C-W><CR>
+" nnoremap <Leader>/ :Ag --ruby ""<Left>
 
 " ---------------------------------------------------------------------------------------------------------------------
 " Window Zooming
@@ -123,9 +133,9 @@ nnoremap <silent> <Leader>h :Startify<CR>
 " ---------------------------------------------------------------------------------------------------------------------
 " Yggdroot/LeaderF
 " let g:Lf_WindowPosition = 'popup'
-let g:Lf_ShowDevIcons = 0
+" let g:Lf_ShowDevIcons = 0
 
-nnoremap <Leader>f :LeaderfFile<CR>
+" nnoremap <Leader>f :LeaderfFile<CR>
 
 " ---------------------------------------------------------------------------------------------------------------------
 " lifepillar/vim-solarized8
@@ -148,8 +158,3 @@ set fillchars=vert:│
 hi VertSplit ctermbg=NONE guibg=NONE ctermfg=Green guifg=#839289
 autocmd ColorScheme * highlight VertSplit cterm=NONE ctermfg=Green ctermbg=NONE
 hi NonText ctermfg=darkcyan guifg=darkcyan
-" ---------------------------------------------------------------------------------------------------------------------
-" Plug 'maralla/completor.vim'
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
