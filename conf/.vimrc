@@ -46,13 +46,23 @@ set colorcolumn=120                " show horizontal separator
 let g:fzf_layout = { 'down': '60%' }
 
 let s:fzf_files_command = 'rg --color=never --no-ignore-vcs --ignore-dot --ignore-parent --hidden --files'
-
-function! s:build_fzf_options(command, bang) abort
-  return extend(fzf#vim#with_preview({'options': ['--layout=reverse']}), { 'source': a:command })
-endfunction
+let s:fzf_grep_command = 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '
+let s:fzf_preview_dict = { 'options': ['--layout=reverse'] }
 
 command! -bang -nargs=? -complete=dir Files
-      \ call fzf#vim#files(<q-args>, s:build_fzf_options(s:fzf_files_command, <bang>0), <bang>0)
+      \ call fzf#vim#files(
+      \   <q-args>,
+      \   extend(fzf#vim#with_preview(s:fzf_preview_dict), { 'source': s:fzf_files_command }),
+      \   <bang>0
+      \ )
+
+command! -bang -nargs=* Rg
+      \ call fzf#vim#grep(
+      \   s:fzf_grep_command.shellescape(<q-args>),
+      \   1,
+      \   fzf#vim#with_preview(s:fzf_preview_dict),
+      \   <bang>0
+      \ )
 
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>s :Rg <C-R><C-W><CR>
