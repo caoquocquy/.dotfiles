@@ -43,7 +43,8 @@ set colorcolumn=120                " show horizontal separator
 
 " ---------------------------------------------------------------------------------------------------------------------
 " Plug 'junegunn/fzf.vim'
-let g:fzf_layout = { 'down': '60%' }
+" let g:fzf_layout = { 'down': '60%' }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } } " popup
 
 let s:fzf_files_command = 'rg --color=never --no-ignore-vcs --ignore-dot --ignore-parent --hidden --files'
 let s:fzf_grep_command = 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '
