@@ -66,6 +66,7 @@ command! -bang -nargs=* Rg
 
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>s :Rg <C-R><C-W><CR>
+nnoremap <Leader>/ :Rg  <Left>
 
 " ---------------------------------------------------------------------------------------------------------------------
 " thoughtbot/vim-rspec
