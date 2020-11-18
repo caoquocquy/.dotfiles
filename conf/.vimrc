@@ -2,11 +2,8 @@
 " junegunn/vim-plug
 call plug#begin()
 Plug 'scrooloose/nerdtree'
-
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-" brew install rg
-
 Plug 'matze/vim-move'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -46,15 +43,22 @@ set colorcolumn=120                " show horizontal separator
 
 " ---------------------------------------------------------------------------------------------------------------------
 " Plug 'junegunn/fzf.vim'
-let g:fzf_layout = { 'down': '30%' } " - down / up / left / right
+let g:fzf_layout = { 'down': '60%' }
 
-command! -bang -nargs=*  All
-  \ call fzf#run(fzf#wrap({'source': 'rg --files --hidden --no-ignore-vcs --glob "!{node_modules/*,.git/*,tmp/*,log/*,.bundle,vendor/bundle/*,gems/*,.gems/*,components/*/gems/*}"', 'options': '--expect=ctrl-t,ctrl-x,ctrl-v --multi --reverse'}))
-nnoremap <Leader>f :All<CR>
+let s:fzf_files_command = 'rg --color=never --no-ignore-vcs --ignore-dot --ignore-parent --hidden --files'
+
+function! s:build_fzf_options(command, bang) abort
+  return extend(fzf#vim#with_preview({'options': ['--layout=reverse']}), { 'source': a:command })
+endfunction
+
+command! -bang -nargs=? -complete=dir Files
+      \ call fzf#vim#files(<q-args>, s:build_fzf_options(s:fzf_files_command, <bang>0), <bang>0)
+
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>s :Rg <C-R><C-W><CR>
 
 " ---------------------------------------------------------------------------------------------------------------------
 " thoughtbot/vim-rspec
-" let g:rspec_command = 'call Send_to_Tmux("spring rspec {spec} --format documentation\n")'
 
 map <Leader>t :call RunNearestSpec()<CR>
 map <Leader>T :call RunCurrentSpecFile()<CR>
@@ -76,14 +80,6 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>e :NERDTreeFind<CR>
 nnoremap <Leader>h :vsplit<CR>
 nnoremap <Leader>v :split<CR>
-
-" ---------------------------------------------------------------------------------------------------------------------
-" rking/ag.vim
-" let g:ag_working_path_mode='r'
-" let g:ag_prg='ag --vimgrep -S --path-to-ignore ~/.ignore'
-
-" nnoremap <Leader>s :Ag --ruby <C-R><C-W><CR>
-" nnoremap <Leader>/ :Ag --ruby ""<Left>
 
 " ---------------------------------------------------------------------------------------------------------------------
 " Window Zooming
@@ -131,13 +127,6 @@ let g:startify_custom_header      = [] " Disable random quotes header
 nnoremap <silent> <Leader>h :Startify<CR>
 
 " ---------------------------------------------------------------------------------------------------------------------
-" Yggdroot/LeaderF
-" let g:Lf_WindowPosition = 'popup'
-" let g:Lf_ShowDevIcons = 0
-
-" nnoremap <Leader>f :LeaderfFile<CR>
-
-" ---------------------------------------------------------------------------------------------------------------------
 " lifepillar/vim-solarized8
 set background=dark
 
@@ -152,7 +141,7 @@ let g:solarized_termcolors = 16
 
 colorscheme solarized8
 
-" ---------------------------------------------------------------------------------------------------------------------
+"----------------------------------------------------------------------------------------------------------------------
 " Thinner the horizontal separator
 set fillchars=vert:│
 hi VertSplit ctermbg=NONE guibg=NONE ctermfg=Green guifg=#839289
