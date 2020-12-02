@@ -27,15 +27,16 @@ $ cd ~/.dotfiles
 $ stow conf
 ```
 
-## Install `vim` Plugins Via `Vundle.vim`
+## Install `vim` Plugins Via `Plug.vim`
 
 ```
-$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+$ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
 ```
 $ vim ~/.vimrc
-:PluginInstall
+:PlugInstall
 ```
 
 ```
@@ -48,7 +49,7 @@ pip3 install --user pynvim
 ```
 $ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 $ source ~/.tmux.conf
-$ brew tap caskroom/fonts && brew cask install font-source-code-pro
+$ brew tap homebrew/cask-fonts && brew install --cask font-source-code-pro
 ```
 ### Come to iTerms and change to font `Source Code Pro`
 

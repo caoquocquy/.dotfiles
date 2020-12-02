@@ -16,6 +16,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-syntastic/syntastic'
 Plug 'lifepillar/vim-solarized8'
 Plug 'yggdroot/indentline'
+Plug 'pechorin/any-jump.vim'
 call plug#end()
 
 " ---------------------------------------------------------------------------------------------------------------------
@@ -43,12 +44,11 @@ set colorcolumn=120                " show horizontal separator
 
 " ---------------------------------------------------------------------------------------------------------------------
 " Plug 'junegunn/fzf.vim'
-" let g:fzf_layout = { 'down': '60%' }
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } } " popup
 
 let s:fzf_files_command = 'rg --color=never --no-ignore-vcs --ignore-dot --ignore-parent --hidden --files'
 let s:fzf_grep_command = 'rg --column --line-number --hidden --ignore-case --no-heading --color=always '
-let s:fzf_preview_dict = { 'options': ['--layout=reverse'] }
+let s:fzf_preview_dict = { 'options': ['--layout=reverse', '--preview-window', 'right:50%:hidden', '--bind', '?:toggle-preview'] }
 
 command! -bang -nargs=? -complete=dir Files
       \ call fzf#vim#files(
@@ -160,3 +160,15 @@ set fillchars=vert:│
 hi VertSplit ctermbg=NONE guibg=NONE ctermfg=Green guifg=#839289
 autocmd ColorScheme * highlight VertSplit cterm=NONE ctermfg=Green ctermbg=NONE
 hi NonText ctermfg=darkcyan guifg=darkcyan
+
+"----------------------------------------------------------------------------------------------------------------------
+" Prefered search engine: rg or ag
+" Plug 'pechorin/any-jump.vim'
+let g:any_jump_search_prefered_engine = 'rg'
+
+" Fugitive Conflict Resolution
+nnoremap <leader>gd :Gvdiff<CR>
+" get left
+nnoremap gdl :diffget //2<CR>
+" get right
+nnoremap gdr :diffget //3<CR>
