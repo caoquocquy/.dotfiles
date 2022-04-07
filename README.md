@@ -13,7 +13,7 @@ $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/inst
 ```
 
 ```
-$ brew install stow Rg bat tig zsh-autosuggestions tmux vim
+$ brew install stow Rg bat tig zsh-autosuggestions tmux vim universal-ctags
 ```
 
 ## Link `.dotfiles`
