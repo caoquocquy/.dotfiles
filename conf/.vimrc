@@ -14,9 +14,10 @@ Plug 'thoughtbot/vim-rspec'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-syntastic/syntastic'
-Plug 'lifepillar/vim-solarized8'
+Plug 'lifepillar/vim-solarized8', { 'tag': 'v1.3.0' }
 Plug 'yggdroot/indentline'
 Plug 'pechorin/any-jump.vim'
+Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
 
 " ---------------------------------------------------------------------------------------------------------------------
@@ -172,3 +173,19 @@ nnoremap <leader>gd :Gvdiff<CR>
 nnoremap gdl :diffget //2<CR>
 " get right
 nnoremap gdr :diffget //3<CR>
+
+" ---------------------------------------------------------------------------------------------------------------------
+" Plug 'ludovicchabant/vim-gutentags'
+set statusline+=%{gutentags#statusline()}
+
+" let g:gutentags_trace = 1
+let g:gutentags_add_default_project_roots = 0
+let g:gutentags_project_root = ['.git']
+let g:gutentags_generate_on_new = 1
+let g:gutentags_generate_on_missing = 1
+let g:gutentags_generate_on_write = 1
+let g:gutentags_generate_on_empty_buffer = 0
+let g:gutentags_ctags_extra_args = [
+      \ '--tag-relative=yes',
+      \ '--fields=+ailmnS',
+      \ ]
